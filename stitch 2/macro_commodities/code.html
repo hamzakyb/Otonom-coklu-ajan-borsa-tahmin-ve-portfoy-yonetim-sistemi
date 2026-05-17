@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OmniQuant BIST AI - Macro &amp; Commodities</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#00dbe7",
+                        "surface-dim": "#121315",
+                        "on-primary-container": "#006a71",
+                        "on-primary": "#00363a",
+                        "primary-container": "#00f2ff",
+                        "surface-container-highest": "#343537",
+                        "surface-container-lowest": "#0d0e10",
+                        "background": "#121315",
+                        "surface-container-high": "#292a2c",
+                        "surface": "#121315",
+                        "on-surface-variant": "#b9cacb",
+                        "outline-variant": "#3a494b",
+                        "surface-container-low": "#1b1c1e",
+                        "surface-container": "#1f2022",
+                        "secondary-container": "#ff4b89",
+                        "on-surface": "#e3e2e5",
+                        "primary": "#e1fdff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAmcKQyhy41V5gn9LpfLOlc-ZAGbf8aXCZfXBSwHo8KxNRYDgs4eEcDV7CPpYGZdQ5zb6BkoG9aqTgGamoKSL6J9ej01cFhgYXIssMbYHrkW7Grt0uPm_nFHOPbhzMSREhwgsgTvHExjDlnPAJP9pikJ6P4beuV8uhjiU68A0deetPUNfS-UH226I7VR_drcoRFGXZpeMD3HCjUfXxdtopHU0X1B2RD94w8wYpgy3uNeZT7aVjRvigC7uJu_Zg0TYSV-x70-l4RQkI);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.glass-card {
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05)
+    }
+.active-glow {
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.5)
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<div class="fixed inset-0 grain-overlay z-50"></div>
+<!-- SideNavBar (The Anchor) -->
+<aside class="fixed left-0 top-0 h-full z-50 h-screen w-20 flex flex-col border-r border-white/5 bg-[#121315]/80 backdrop-blur-xl shadow-[24px_0_48px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col items-center py-6 gap-8 h-full">
+<div class="text-xl font-black text-[#00f2ff] tracking-tighter font-headline">OQ</div>
+<nav class="flex flex-col gap-4 w-full items-center">
+<button class="p-3 text-slate-500 hover:text-slate-200 transition-all duration-300 hover:bg-white/5">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="p-3 text-slate-500 hover:text-slate-200 transition-all duration-300 hover:bg-white/5">
+<span class="material-symbols-outlined">query_stats</span>
+</button>
+<button class="p-3 text-[#00f2ff] bg-[#00f2ff]/10 shadow-[0_0_15px_rgba(0,242,255,0.3)] rounded-r-lg">
+<span class="material-symbols-outlined">online_prediction</span>
+</button>
+<button class="p-3 text-slate-500 hover:text-slate-200 transition-all duration-300 hover:bg-white/5">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+<div class="mt-auto pb-6">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-20 z-40 flex justify-between items-center px-8 h-16 bg-[#121315]/60 backdrop-blur-2xl border-b border-white/5">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-[#e3e2e5] font-headline">OmniQuant BIST</span>
+<nav class="hidden md:flex gap-6 items-center font-label text-sm">
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">Macro</a>
+<a class="text-[#00f2ff] border-b-2 border-[#00f2ff] pb-1" href="#">Commodities</a>
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">News</a>
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">Portfolio</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">XBIST</span>
+<span class="text-[#00f2ff] font-headline font-bold text-sm animate-pulse">9,145.20</span>
+</div>
+<div class="h-8 w-[1px] bg-white/10"></div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary-container font-headline font-bold text-xs rounded hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all">
+                Wallet: ₺142,500
+            </button>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-container transition-colors">notifications</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-20 pt-24 px-8 pb-12 min-h-screen">
+<!-- Hero Section: Dynamic Market Pulse -->
+<div class="grid grid-cols-12 gap-8 mb-12">
+<div class="col-span-12 lg:col-span-8">
+<h1 class="font-headline text-5xl font-black text-on-surface mb-2 tracking-tighter">Global Liquidity <span class="text-primary-container">Flow</span></h1>
+<p class="text-on-surface-variant max-w-2xl font-body">Real-time macro correlations and commodity volatility tracking for BIST institutional traders. Data synchronized with global futures markets.</p>
+</div>
+<div class="col-span-12 lg:col-span-4 flex items-end justify-end gap-4">
+<div class="p-4 bg-surface-container-low rounded border border-white/5 glass-card">
+<div class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest mb-1">Market Sentiment</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container shadow-[0_0_10px_rgba(0,242,255,0.6)]"></div>
+<span class="font-headline font-bold text-lg">EXTREME BULLISH</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Commodity Cards Section -->
+<section class="mb-16">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-xl font-bold tracking-tight text-on-surface-variant uppercase">Key Commodities</h2>
+<span class="text-xs font-label text-primary-container/60">Live Updates • 15s latency</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Gold Card -->
+<div class="p-6 bg-surface-container-high rounded glass-card group hover:bg-surface-container-highest transition-all duration-500 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary-container/10 transition-all"></div>
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<span class="font-label text-xs text-on-surface-variant">XAU/USD</span>
+<h3 class="font-headline text-2xl font-black">Gold</h3>
+</div>
+<div class="text-right">
+<div class="text-primary-container font-headline font-bold text-xl">$2,145.20</div>
+<div class="text-[10px] text-primary-container font-bold">+1.24%</div>
+</div>
+</div>
+<div class="h-16 w-full flex items-end gap-1 mb-4">
+<div class="flex-1 bg-primary-container/20 h-4 rounded-t-sm group-hover:h-8 transition-all duration-700"></div>
+<div class="flex-1 bg-primary-container/20 h-6 rounded-t-sm group-hover:h-12 transition-all duration-700 delay-75"></div>
+<div class="flex-1 bg-primary-container/20 h-10 rounded-t-sm group-hover:h-14 transition-all duration-700 delay-100"></div>
+<div class="flex-1 bg-primary-container/20 h-8 rounded-t-sm group-hover:h-10 transition-all duration-700 delay-150"></div>
+<div class="flex-1 bg-primary-container/20 h-12 rounded-t-sm group-hover:h-16 transition-all duration-700 delay-200"></div>
+<div class="flex-1 bg-primary-container/40 h-14 rounded-t-sm group-hover:h-12 transition-all duration-700 delay-300"></div>
+<div class="flex-1 bg-primary-container h-16 rounded-t-sm group-hover:h-14 transition-all duration-700 delay-500"></div>
+</div>
+</div>
+<!-- Silver Card -->
+<div class="p-6 bg-surface-container-high rounded glass-card group hover:bg-surface-container-highest transition-all duration-500 relative overflow-hidden">
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<span class="font-label text-xs text-on-surface-variant">XAG/USD</span>
+<h3 class="font-headline text-2xl font-black">Silver</h3>
+</div>
+<div class="text-right">
+<div class="text-on-surface font-headline font-bold text-xl">$24.12</div>
+<div class="text-[10px] text-secondary-container font-bold">-0.45%</div>
+</div>
+</div>
+<div class="h-16 w-full flex items-end gap-1 mb-4">
+<div class="flex-1 bg-secondary-container/20 h-12 rounded-t-sm group-hover:h-14 transition-all"></div>
+<div class="flex-1 bg-secondary-container/20 h-14 rounded-t-sm group-hover:h-12 transition-all"></div>
+<div class="flex-1 bg-secondary-container/20 h-10 rounded-t-sm group-hover:h-8 transition-all"></div>
+<div class="flex-1 bg-secondary-container/20 h-8 rounded-t-sm group-hover:h-6 transition-all"></div>
+<div class="flex-1 bg-secondary-container/40 h-6 rounded-t-sm group-hover:h-10 transition-all"></div>
+<div class="flex-1 bg-secondary-container h-4 rounded-t-sm group-hover:h-8 transition-all"></div>
+</div>
+</div>
+<!-- Oil Card -->
+<div class="p-6 bg-surface-container-high rounded glass-card group hover:bg-surface-container-highest transition-all duration-500 relative overflow-hidden">
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<span class="font-label text-xs text-on-surface-variant">WTI Crude</span>
+<h3 class="font-headline text-2xl font-black">Oil</h3>
+</div>
+<div class="text-right">
+<div class="text-primary-container font-headline font-bold text-xl">$78.45</div>
+<div class="text-[10px] text-primary-container font-bold">+2.88%</div>
+</div>
+</div>
+<div class="h-16 w-full flex items-end gap-1 mb-4">
+<div class="flex-1 bg-primary-container/20 h-4 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container/20 h-5 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container/20 h-7 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container/20 h-10 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container/40 h-13 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container/60 h-14 rounded-t-sm"></div>
+<div class="flex-1 bg-primary-container h-16 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Macro & Insights Grid -->
+<div class="grid grid-cols-12 gap-10">
+<!-- Macro Calendar (Timeline) -->
+<div class="col-span-12 lg:col-span-4">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-xl font-bold tracking-tight">Macro Calendar</h2>
+<span class="text-xs text-on-surface-variant bg-surface-container px-2 py-1 rounded">GMT +3</span>
+</div>
+<div class="relative space-y-0 border-l border-white/10 ml-2">
+<!-- Event 1: High Impact -->
+<div class="relative pl-8 pb-10">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-secondary-container shadow-[0_0_15px_#ff4b89]"></div>
+<div class="text-[10px] font-bold text-secondary-container uppercase tracking-widest mb-1">14:30 • High Impact</div>
+<div class="p-4 bg-surface-container-low rounded border-l-4 border-secondary-container glass-card shadow-[0_0_30px_rgba(255,75,137,0.15)]">
+<h4 class="font-headline font-bold text-sm mb-1">US Non-Farm Payrolls</h4>
+<div class="flex justify-between text-[11px] font-mono text-on-surface-variant">
+<span>Forecast: 180K</span>
+<span>Previous: 212K</span>
+</div>
+</div>
+</div>
+<!-- Event 2: Medium Impact -->
+<div class="relative pl-8 pb-10">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary-container/50"></div>
+<div class="text-[10px] font-bold text-primary-container uppercase tracking-widest mb-1">16:00 • Medium Impact</div>
+<div class="p-4 bg-surface-container-low rounded border-l-2 border-primary-container/30 glass-card">
+<h4 class="font-headline font-bold text-sm mb-1">ISM Services PMI</h4>
+<div class="flex justify-between text-[11px] font-mono text-on-surface-variant">
+<span>Forecast: 52.4</span>
+<span>Previous: 53.0</span>
+</div>
+</div>
+</div>
+<!-- Event 3: Low Impact -->
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-white/20"></div>
+<div class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">18:30 • Low Impact</div>
+<div class="p-4 bg-surface-container-low/50 rounded glass-card">
+<h4 class="font-headline font-bold text-sm mb-1">EIA Crude Oil Stockpile</h4>
+<p class="text-[11px] text-on-surface-variant italic">Weekly inventory report</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Analytics Grid -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-2 gap-6">
+<!-- Large Analytics Card -->
+<div class="col-span-2 p-8 bg-surface-container-low rounded glass-card min-h-[320px] relative overflow-hidden flex flex-col justify-between">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline text-2xl font-black mb-2">Central Bank Analysis</h3>
+<p class="text-on-surface-variant text-sm max-w-md">Sentiment analysis of CBRT and FED speeches using OmniQuant's proprietary NLP models.</p>
+</div>
+<div class="bg-primary-container/10 p-2 rounded">
+<span class="material-symbols-outlined text-primary-container">psychology</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Hawkish Bias</span>
+<span class="text-primary-container font-bold">78%</span>
+</div>
+<div class="h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[78%]"></div>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Rate Cut Probability</span>
+<span class="text-on-surface font-bold">12%</span>
+</div>
+<div class="h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-white/20 w-[12%]"></div>
+</div>
+</div>
+<div class="flex flex-col justify-center border-l border-white/5 pl-8">
+<div class="text-[10px] text-on-surface-variant uppercase font-black tracking-widest mb-2">Key Vector</div>
+<div class="text-3xl font-headline font-black text-on-surface">"Sticky Inflation"</div>
+<div class="text-xs text-secondary-container mt-1 font-bold">Frequency: High +44%</div>
+</div>
+</div>
+</div>
+<!-- Decorative Graphic Elements -->
+<div class="absolute bottom-0 right-0 opacity-20 pointer-events-none translate-y-1/4 translate-x-1/4">
+<div class="w-96 h-96 border-[40px] border-primary-container rounded-full blur-[100px]"></div>
+</div>
+</div>
+<!-- Secondary Metric Card 1 -->
+<div class="p-6 bg-surface-container-high rounded glass-card flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-on-surface-variant mb-4">currency_exchange</span>
+<h4 class="font-headline font-bold text-on-surface">USD/TRY Outlook</h4>
+</div>
+<div class="mt-4">
+<div class="text-2xl font-headline font-black mb-1">32.14</div>
+<div class="flex items-center gap-1 text-[10px] text-primary-container font-bold">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+                            STABLE CORRELATION
+                        </div>
+</div>
+</div>
+<!-- Secondary Metric Card 2 -->
+<div class="p-6 bg-surface-container-high rounded glass-card flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-secondary-container mb-4">warning</span>
+<h4 class="font-headline font-bold text-on-surface">Volatility Index</h4>
+</div>
+<div class="mt-4 relative z-10">
+<div class="text-2xl font-headline font-black mb-1 text-secondary-container">18.42%</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Systemic risk remains moderate</div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary-container/5 to-transparent"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-[#121315]/90 backdrop-blur-md md:hidden border-t border-white/10 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">equalizer</span>
+<span class="text-[10px] font-medium font-body">Markets</span>
+</div>
+<div class="flex flex-col items-center text-[#00f2ff] scale-110">
+<span class="material-symbols-outlined">online_prediction</span>
+<span class="text-[10px] font-medium font-body">Macro</span>
+</div>
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="text-[10px] font-medium font-body">News</span>
+</div>
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-[10px] font-medium font-body">Portfolio</span>
+</div>
+</nav>
+</body></html>

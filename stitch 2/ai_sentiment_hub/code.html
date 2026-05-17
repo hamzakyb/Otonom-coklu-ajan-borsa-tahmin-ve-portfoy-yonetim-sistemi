@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OmniQuant BIST AI | News &amp; Sentiment Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#00dbe7",
+              "on-tertiary-fixed-variant": "#39485a",
+              "surface-dim": "#121315",
+              "secondary-fixed-dim": "#ffb1c3",
+              "on-secondary-container": "#590026",
+              "surface-bright": "#38393b",
+              "on-primary-fixed-variant": "#004f54",
+              "on-primary-container": "#006a71",
+              "on-primary": "#00363a",
+              "tertiary-fixed": "#d4e4fa",
+              "inverse-primary": "#00696f",
+              "inverse-surface": "#e3e2e5",
+              "on-tertiary-fixed": "#0d1c2d",
+              "surface-container-highest": "#343537",
+              "primary-container": "#00f2ff",
+              "secondary-fixed": "#ffd9e0",
+              "surface-container-lowest": "#0d0e10",
+              "tertiary-fixed-dim": "#b9c8de",
+              "outline": "#849495",
+              "primary-fixed-dim": "#00dbe7",
+              "primary-fixed": "#74f5ff",
+              "on-error-container": "#ffdad6",
+              "on-tertiary": "#233143",
+              "on-secondary": "#66002c",
+              "outline-variant": "#3a494b",
+              "background": "#0a0b0d",
+              "surface-variant": "#343537",
+              "on-secondary-fixed": "#3f0019",
+              "inverse-on-surface": "#303033",
+              "surface-container-high": "#292a2c",
+              "surface": "#121315",
+              "on-surface-variant": "#b9cacb",
+              "on-tertiary-container": "#526174",
+              "on-primary-fixed": "#002022",
+              "secondary": "#ffb1c3",
+              "on-surface": "#e3e2e5",
+              "error-container": "#93000a",
+              "surface-container-low": "#1b1c1e",
+              "surface-container": "#1f2022",
+              "tertiary-container": "#cddcf3",
+              "on-error": "#690005",
+              "secondary-container": "#ff4b89",
+              "tertiary": "#f5f7ff",
+              "error": "#ffb4ab",
+              "on-secondary-fixed-variant": "#8f0041",
+              "on-background": "#e3e2e5",
+              "primary": "#e1fdff",
+              "magenta": "#ff007a"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #0a0b0d;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAyruHdiFNArPQQs6tTwBaayiPlQD34lahgA6f2ZU3vLfoc9snwI9_xpqkYlr_ikhIIyv2t7AWEm-rtLdTjVtjygvfvsW75qGqUoBSDJrHdi-78uYUuHUufxwY4aj0pO_0VCFM1lnNwiRRXEOoQCL0hTMmxcXoBkG8jlMxqk6RC7uW4lVemN0N55wyqZ21d-wR1Gf6nKRIhwEN29eIoLFkaL6-TcZBvfKMqk-OmRh-fbPQYEwmDtmHtYDmq2M6tAv6sjpbt2wb5sEI);
+    background-attachment: fixed
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.glass-card {
+    background: rgba(31, 32, 34, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.03)
+    }
+.sentiment-gradient {
+    background: linear-gradient(90deg, #ff4b89 0%, #343537 50%, #00f2ff 100%)
+    }
+.pulse-ring {
+    box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7);
+    animation: pulse 2s infinite
+    }
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4);
+        } 70% {
+        box-shadow: 0 0 0 10px rgba(0, 242, 255, 0);
+        } 100% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 255, 0);
+        }
+    }</style>
+</head>
+<body class="font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-50 h-screen w-20 flex flex-col border-r border-white/5 bg-[#121315]/80 backdrop-blur-xl shadow-[24px_0_48px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col items-center py-6 gap-8">
+<div class="text-xl font-black text-[#00f2ff] tracking-tighter font-headline">OQ</div>
+<nav class="flex flex-col gap-4 w-full">
+<a class="group relative flex justify-center py-3 text-slate-500 hover:text-slate-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="group relative flex justify-center py-3 text-slate-500 hover:text-slate-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+</a>
+<a class="group relative flex justify-center py-3 text-[#00f2ff] bg-[#00f2ff]/10 shadow-[0_0_15px_rgba(0,242,255,0.3)] rounded-r-lg font-['Space_Grotesk'] font-bold tracking-tight" href="#">
+<span class="material-symbols-outlined">online_prediction</span>
+</a>
+<a class="group relative flex justify-center py-3 text-slate-500 hover:text-slate-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+<a class="group relative flex justify-center py-3 text-slate-500 hover:text-slate-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">help</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto pb-8 flex flex-col items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-[#00f2ff]/30 p-0.5">
+<img alt="User Profile Avatar" class="w-full h-full rounded-full object-cover" data-alt="Close-up professional portrait of a man with sharp features and thoughtful expression, high-end editorial lighting, dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcEbgSawGXjKhrx_8oqCNxMkd-WeAhNjN7VlfA0t8lVyfr73LXp786cIgbMsNJeONI79nzpwpn40PO0yc0GvheD1bQJ_uajNsnp8b9W5oZv700rrS5Ag5eJsufvJRoZDeIqG6XGVJ0tcywsLyj1VNAZXjEqO1XRNo8yCZizl2cMGf0-6JhAYdXmvZgqBd7yg7EbVBo4HlTlxWf7a5bZBpLbp75v_qu4VOTx93hEYYHKQZGBSwDWHAjvwC6qiONg4EpmbxRzLgSoLI"/>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-20 z-40 flex justify-between items-center px-8 h-16 bg-[#121315]/60 backdrop-blur-2xl border-b border-white/5">
+<div class="flex items-center gap-12">
+<h1 class="text-2xl font-black text-[#e3e2e5] font-headline tracking-tighter">OmniQuant BIST</h1>
+<nav class="hidden md:flex gap-8 items-center text-sm font-medium">
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">Macro</a>
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">Commodities</a>
+<a class="text-[#00f2ff] border-b-2 border-[#00f2ff] pb-1" href="#">News</a>
+<a class="text-[#e3e2e5]/60 hover:text-[#00f2ff] transition-all" href="#">Portfolio</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">XBIST Ticker</span>
+<span class="text-primary-container font-headline font-bold text-sm flex items-center gap-1">
+          9,145.20 <span class="material-symbols-outlined text-xs">trending_up</span>
+</span>
+</div>
+<div class="h-8 w-[1px] bg-white/10"></div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-container">notifications</span>
+<button class="bg-surface-container-high px-4 py-1.5 rounded text-xs font-bold border border-white/5 hover:border-primary-container/50 transition-all">
+          Wallet: ₺142,500
+        </button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-20 mt-16 p-8 min-h-screen">
+<!-- Hero Section: AI Agent Roster -->
+<section class="mb-12">
+<div class="flex items-baseline justify-between mb-6">
+<h2 class="text-3xl font-black font-headline tracking-tighter text-on-surface">AI SENSIMENT AGENTS</h2>
+<span class="text-xs font-mono text-primary-container bg-primary-container/10 px-2 py-0.5 rounded">6 ACTIVE NODES</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<!-- Agent Card 1 -->
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 border border-primary-container/20 pulse-ring">
+<img alt="Agent Alpha" class="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Conceptual 3D render of a futuristic AI core with glowing cyan circuits and liquid metal textures, dark atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhzVHCJBuHSGgqyh4-ZwBkEcpoxDjvkh5nIJG7B8bTuHnqhfGbj1BDv_by26OaesQjS8AYKaGuq6LK65U_IDYbF5Wl0kks4GA_SgPU2jEEsEB0qh-mh5SkVXf4WdBNRZM6PURG8bOm_vAno_LqurlpwxPpXzVjErX9MQPkP2zpWlb8yGDeW9W9OJDTf93UqgYr_NgIpjiYMVhAMLG0Dd37gXyxFEBUMU70jesjSvS_DIPwkDfoJltaaCdtWLVjR6EMLJZhAT81q5w"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-primary-container rounded-full border-2 border-background"></div>
+</div>
+<div>
+<p class="font-headline font-bold text-sm tracking-tight">KAVRA-I</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Macro Analyst</p>
+</div>
+</div>
+<!-- Agent Card 2 -->
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 border border-magenta/20 pulse-ring" style="animation-delay: 0.5s;">
+<img alt="Agent Beta" class="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Digital art of a neural network node pulsing with electric magenta energy, complex crystalline structures, dark void background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3nRFLL1ajZ5BATJyPtNF7EylnkUXLVq-N0vHGTNuZm2xIsbZtDueFBwf1fKni1sGc9rc26oC2XuMgYzNL99-afv5M47al8fg4SqjbsUEiHbRQuxq8Y2s5wg9GKwN0POwwTc-MACKT4Pd7tMYVfreVU5NUvqRFDlJgKc80AJ3qmkCqkMwIIdGcCydo730sfizmnnJ0Ie01t7tRvvRN8kQ9R8YOCfFhrbnP1XAaVj9HwOS9tFvNbAh8FH9GoKwQfN67H0h6mqslQRs"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-magenta rounded-full border-2 border-background"></div>
+</div>
+<div>
+<p class="font-headline font-bold text-sm tracking-tight">SENTI-HEX</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Retail Flow</p>
+</div>
+</div>
+<!-- Agent Card 3 -->
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 border border-primary-container/20 pulse-ring" style="animation-delay: 1s;">
+<img alt="Agent Gamma" class="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Sleek silver futuristic robot eye with cyan lens flare, macro photography, high-tech laboratory aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9dJfcUpmc2dr8gfYX42oVs_Hhn_2Z58KgSiB6yQlXKlzefJrrS7FVxtp8U9Y5OpM5wvhGOBDXlWjbKQxocLdRADNI1Dzb3V1x08yJ2ycCKBZcqrO5Nn-rVRpojPuG-EcXygLFpWtOdCT0t_HzENu64BgT4Hj_NIOMw2XgomvvI985kpXswxYQcKXiZ7q_r8YQoBFzqFheKTRWyfwPhFRhieALdBahI7Ah2FOE64a1eR5dcmsbXri4KlhrAPd9DKHus1lKyb8wwOY"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-primary-container rounded-full border-2 border-background"></div>
+</div>
+<div>
+<p class="font-headline font-bold text-sm tracking-tight">VIGIL-9</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">News Scraper</p>
+</div>
+</div>
+<!-- Repeat for 3 more as skeletons or simplified -->
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 opacity-50">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="space-y-2">
+<div class="h-3 w-16 bg-surface-container-highest rounded mx-auto"></div>
+<div class="h-2 w-12 bg-surface-container-highest rounded mx-auto"></div>
+</div>
+</div>
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 opacity-50">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="space-y-2">
+<div class="h-3 w-16 bg-surface-container-highest rounded mx-auto"></div>
+<div class="h-2 w-12 bg-surface-container-highest rounded mx-auto"></div>
+</div>
+</div>
+<div class="glass-card p-6 flex flex-col items-center text-center gap-4 opacity-50 border-dashed border-white/10">
+<div class="w-16 h-16 rounded-full flex items-center justify-center border border-dashed border-white/20">
+<span class="material-symbols-outlined text-white/20">add</span>
+</div>
+<div>
+<p class="font-headline font-bold text-sm text-white/20">DEPLOY NEW</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Sentiment Feed & Evidence Trail -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Sentiment Feed -->
+<section class="lg:col-span-8 space-y-6">
+<div class="flex items-center gap-4 mb-2">
+<span class="material-symbols-outlined text-primary-container">rss_feed</span>
+<h3 class="font-headline font-bold text-xl tracking-tight">LIVE SENTIMENT STREAM</h3>
+</div>
+<!-- News Item 1 -->
+<div class="glass-card overflow-hidden group">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold text-magenta bg-magenta/10 px-2 py-0.5 rounded">BREAKING</span>
+<span class="text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">2 MINS AGO • BLOOMBERG HT</span>
+</div>
+<h4 class="text-xl font-headline font-bold mb-3 group-hover:text-primary-container transition-colors">TCMB Interest Rate Decision: Markets Brace for Hawkish Hold</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+                Analysts suggest a 75% probability of maintaining current rates while signaling further tightening if inflation persists. BIST 100 banks showing early volatility.
+              </p>
+<!-- Sentiment Meter -->
+<div class="space-y-1.5 mb-6">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter">
+<span class="text-magenta">Bearish (-1.0)</span>
+<span class="text-on-surface-variant">Neutral</span>
+<span class="text-primary-container">Bullish (+1.0)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden sentiment-gradient p-[1px]">
+<div class="h-full bg-surface-container-lowest flex items-center justify-end" style="width: 35%;">
+<div class="w-2 h-full bg-white shadow-[0_0_8px_white]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-xs font-mono">Current Vector: <span class="text-primary-container">+0.65</span></span>
+<span class="text-[10px] text-on-surface-variant italic">Confidence Score: 92%</span>
+</div>
+</div>
+<!-- Evidence Trail (Expandable Area) -->
+<div class="border-t border-white/5 pt-4">
+<button class="flex items-center gap-2 text-xs font-bold text-primary-container/80 hover:text-primary-container transition-all uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">unfold_more</span>
+                  View Evidence Trail (4 Sources)
+                </button>
+<!-- Nested Evidence Rows -->
+<div class="mt-4 space-y-3 pl-4 border-l border-primary-container/20">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-xs mt-0.5 text-primary-container">check_circle</span>
+<div class="text-xs text-on-surface-variant">
+<span class="text-on-surface font-semibold">Reuters:</span> "Turkey central bank seen holding rates steady in March."
+                        </div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-xs mt-0.5 text-primary-container">check_circle</span>
+<div class="text-xs text-on-surface-variant">
+<span class="text-on-surface font-semibold">Anadolu Agency:</span> "Economic stability remains top priority for CBRT board."
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 h-48 md:h-auto rounded bg-surface-container-lowest overflow-hidden">
+<img alt="Market Chart" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 scale-110 group-hover:scale-100" data-alt="Dramatic high-contrast candlestick trading chart on a dark monitor, neon green and red accents, blurred bokeh background of a trading floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5UEkh4NTDUwsxzG2w2Ok_qsG2Knkc6Sj5T-zU99rkJTQab9EKsy0O3Y0qFPvovVOMzdZlh3TEvooGAay8suuvqtkPfKaRZ_jDTtDdl-qMex_-GEmShijYFTXt95D5tZugRV7XEFsDy0J6-zB2DC2DsSQoI0BVSGWK607HJQLxaOeCweVdXV96HVSXi6WbtjnTh1-z_l5veO_v4dL-N6Wjc_MdVVJAfWy5_FHsO3nVCKeqzHmzumnxeZxSxPHsQaizvuCMnfCM32c"/>
+</div>
+</div>
+</div>
+<!-- News Item 2 -->
+<div class="glass-card overflow-hidden group">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">15 MINS AGO • FINANS DÜNYASI</span>
+</div>
+<h4 class="text-xl font-headline font-bold mb-3 group-hover:text-primary-container transition-colors">THYAO Fleet Expansion: Major Airbus Deal Nearing Completion</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+                Sources close to the Turkish Airlines board suggest a multi-billion dollar agreement for 25 new wide-body jets. Market anticipation drives price up 1.2%.
+              </p>
+<!-- Sentiment Meter -->
+<div class="space-y-1.5 mb-6">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter">
+<span class="text-magenta">Bearish</span>
+<span class="text-primary-container">Bullish</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden sentiment-gradient p-[1px]">
+<div class="h-full bg-surface-container-lowest flex items-center justify-end" style="width: 15%;">
+<div class="w-2 h-full bg-white shadow-[0_0_8px_white]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-xs font-mono">Current Vector: <span class="text-primary-container">+0.88</span></span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 h-48 md:h-auto rounded bg-surface-container-lowest overflow-hidden">
+<img alt="Aviation" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700" data-alt="Commercial airliner flying through a deep indigo twilight sky, landing lights glowing brightly, cinematic low-angle shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk6DhZvwvu0M-v-INIa_BOXA-kx50eIzpLPJmKfGD44vpQ0CpBYDaybc-8mR1PcZ3JnpcO6n2U5pcSs5N_zpcTg1-zrR3Kk_lOBjetMzAOLCuAb127EDGsNkA_Fkz0UtpQ5Vso1d3YXGhdhBeG7Spxu6MIAY3lhwAuM7KyWRgjb-dgyxysCmu9tWgVfqB1QKlWAuZ0dwW9ZOfQK2IW5lHqIwte89gC6mVJGDXDPuxhjh8WeF7WNjDwhVC5osuBl1dwS0rsDN6kQC0"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Contextual Intelligence -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Sector Heatmap (Bento Item) -->
+<div class="glass-card p-6">
+<h3 class="font-headline font-bold text-sm mb-6 uppercase tracking-widest">Sentiment Heatmap</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-primary-container/20 p-4 border border-primary-container/30">
+<span class="text-[10px] font-bold text-primary-container uppercase block mb-1">Banking</span>
+<span class="text-xl font-headline font-bold">+0.42</span>
+</div>
+<div class="bg-magenta/10 p-4 border border-magenta/20">
+<span class="text-[10px] font-bold text-magenta uppercase block mb-1">Energy</span>
+<span class="text-xl font-headline font-bold">-0.18</span>
+</div>
+<div class="bg-primary-container/10 p-4 border border-primary-container/20">
+<span class="text-[10px] font-bold text-primary-container uppercase block mb-1">Tech</span>
+<span class="text-xl font-headline font-bold">+0.12</span>
+</div>
+<div class="bg-surface-container-highest p-4 border border-white/5">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase block mb-1">Retail</span>
+<span class="text-xl font-headline font-bold text-on-surface-variant">0.00</span>
+</div>
+</div>
+</div>
+<!-- AI Summary Card -->
+<div class="glass-card p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary-container opacity-20 text-4xl">auto_awesome</span>
+</div>
+<h3 class="font-headline font-bold text-sm mb-4 uppercase tracking-widest">AI Synthesis</h3>
+<p class="text-sm text-on-surface leading-relaxed italic">
+            "Overall BIST sentiment remains cautiously bullish (+0.24). Strength in transportation offsets concerns regarding interest rate stability. Heavy volume detected in mid-cap industrial stocks."
+          </p>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container/20 border border-background flex items-center justify-center">
+<span class="text-[8px] font-bold">K</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-magenta/20 border border-background flex items-center justify-center">
+<span class="text-[8px] font-bold">S</span>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant">Verified by 2 Agents</span>
+</div>
+</div>
+<!-- Trending Keywords (Brutalist Chips) -->
+<div class="glass-card p-6">
+<h3 class="font-headline font-bold text-sm mb-4 uppercase tracking-widest">Signal Keywords</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-lowest border border-white/10 text-[10px] font-bold hover:border-primary-container cursor-default">INFLATION</span>
+<span class="px-3 py-1 bg-surface-container-lowest border border-primary-container/50 text-[10px] font-bold text-primary-container">CBRT</span>
+<span class="px-3 py-1 bg-surface-container-lowest border border-white/10 text-[10px] font-bold hover:border-primary-container cursor-default">EXPORT DEALS</span>
+<span class="px-3 py-1 bg-surface-container-lowest border border-magenta/50 text-[10px] font-bold text-magenta">LIRA VOLATILITY</span>
+<span class="px-3 py-1 bg-surface-container-lowest border border-white/10 text-[10px] font-bold hover:border-primary-container cursor-default">XBANK</span>
+<span class="px-3 py-1 bg-surface-container-lowest border border-white/10 text-[10px] font-bold hover:border-primary-container cursor-default">Q1 EARNINGS</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-[#121315]/90 backdrop-blur-md md:hidden border-t border-white/10 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined">equalizer</span>
+<span class="text-[10px] font-medium font-['Inter']">Markets</span>
+</a>
+<a class="flex flex-col items-center text-[#00f2ff] scale-110" href="#">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="text-[10px] font-medium font-['Inter']">News</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-[10px] font-medium font-['Inter']">Portfolio</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium font-['Inter']">Profile</span>
+</a>
+</footer>
+</body></html>

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+PyJWT
+passlib[bcrypt]
+websockets
+celery
+redis
+vectorbt
+slowapi

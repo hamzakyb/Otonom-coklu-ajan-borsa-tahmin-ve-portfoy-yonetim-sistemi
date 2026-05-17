@@ -1,0 +1,88 @@
+# Use Python for the final image
+FROM python:3.10-slim AS base
+
+# --- STAGE 0: Setup Environment ---
+RUN apt-get update && apt-get install -y \
+    curl \
+    supervisor \
+    nginx \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# --- STAGE 1: Build Frontend ---
+FROM node:20-bookworm-slim AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install --legacy-peer-deps
+COPY frontend/ .
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN npm run build
+
+# --- STAGE 2: Build Final Image ---
+FROM base AS runner
+WORKDIR /app
+
+# Install Backend Dependencies
+COPY backend/ ./backend
+WORKDIR /app/backend
+ENV PIP_DEFAULT_TIMEOUT=100
+RUN pip install --no-cache-dir -r requirements-core.txt && \
+    pip install --no-cache-dir -r requirements-data.txt && \
+    pip install --no-cache-dir -r requirements-ai.txt && \
+    pip install --no-cache-dir -r requirements-extra.txt
+
+# Copy Frontend Standalone Build
+WORKDIR /app/frontend
+COPY --from=frontend-builder /app/frontend/.next/standalone ./
+COPY --from=frontend-builder /app/frontend/.next/static ./.next/static
+COPY --from=frontend-builder /app/frontend/public ./public
+
+# Copy Nginx Config
+COPY nginx.hf.conf /etc/nginx/nginx.conf
+
+# Supervisor Configuration to run everything
+RUN echo '[supervisord]\n\
+nodaemon=true\n\
+\n\
+[program:nginx]\n\
+command=nginx -g "daemon off;"\n\
+autostart=true\n\
+autorestart=true\n\
+\n\
+[program:backend]\n\
+command=uvicorn main:app --host 0.0.0.0 --port 8000\n\
+directory=/app/backend\n\
+autostart=true\n\
+autorestart=true\n\
+\n\
+[program:frontend]\n\
+command=node server.js\n\
+directory=/app/frontend\n\
+autostart=true\n\
+autorestart=true\n\
+environment=PORT="3000"\n\
+\n\
+[program:celery_worker]\n\
+command=celery -A worker worker --loglevel=info\n\
+directory=/app/backend\n\
+autostart=true\n\
+autorestart=true\n\
+\n\
+[program:celery_beat]\n\
+command=celery -A worker beat --loglevel=info\n\
+directory=/app/backend\n\
+autostart=true\n\
+autorestart=true\n'\
+> /etc/supervisor/conf.d/supervisord.conf
+
+# HF Spaces listen on 7860 (Nginx handles this)
+EXPOSE 7860
+
+CMD ["/usr/bin/supervisord"]
